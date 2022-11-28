@@ -36,11 +36,12 @@ int main() {
 	const char* vertexShaderSource = 
 		"#version 460 core\n"
 		"layout (location = 0) in vec3 aPos;\n"
+		"uniform vec4 ourColor;\n"
 		"out vec4 vertexColor;\n"
 		"void main()\n"
 		"{\n"
 		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"	vertexColor=vec4(0.5,0,0,1.0);\n"
+		"	vertexColor=ourColor;\n"
 		"}\0";
 	unsigned int vertexShader;
 	vertexShader= glCreateShader(GL_VERTEX_SHADER);
@@ -110,6 +111,9 @@ int main() {
 		processInput(window);	
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		unsigned int uniformColorLocation= glGetUniformLocation(shaderProgram, "ourColor");	
+		double t=  glfwGetTime();
+		glUniform4f(uniformColorLocation, (GLfloat)sin(t), (GLfloat)cos(t), 1, 1);
 	//¼¤»î×ÅÉ«Æ÷
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
