@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\OpenGL\GLAD\glad.c" />
     <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="第一个三角形.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
