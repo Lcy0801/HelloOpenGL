@@ -18,7 +18,10 @@
     <ClCompile Include="..\..\..\..\..\..\OpenGL\GLAD\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="第一个三角形.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EBO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
