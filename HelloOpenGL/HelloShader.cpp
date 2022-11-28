@@ -13,7 +13,7 @@ void processInput(GLFWwindow* window) {
 	}
 }		
 
-int main() {
+int main01() {
 	glfwInit();   
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -93,7 +93,7 @@ int main() {
 	-0.5f, -0.5f, 0.0f,1.0f,0.0f,0.0f,
 	 0.5f, -0.5f, 0.0f,0.0f,1.0f,0.0f,
 	 0.0f,  0.5f, 0.0f,0.0f,0.0f,1.0f
-	};
+	};	
 	//初始化顶点数组合对象
 	unsigned int VAO;
 	glGenVertexArrays(1, &VAO);
