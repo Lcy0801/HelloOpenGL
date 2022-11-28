@@ -36,12 +36,12 @@ int main() {
 	const char* vertexShaderSource = 
 		"#version 460 core\n"
 		"layout (location = 0) in vec3 aPos;\n"
-		"uniform vec4 ourColor;\n"
+		"layout (location = 1) in vec3 vColor;\n"
 		"out vec4 vertexColor;\n"
 		"void main()\n"
 		"{\n"
 		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"	vertexColor=ourColor;\n"
+		"	vertexColor=vec4(vColor,1.0f);\n"
 		"}\0";
 	unsigned int vertexShader;
 	vertexShader= glCreateShader(GL_VERTEX_SHADER);
@@ -90,9 +90,9 @@ int main() {
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 	float vertices[] = {
-	-0.5f, -0.5f, 0.0f,
-	 0.5f, -0.5f, 0.0f,
-	 0.0f,  0.5f, 0.0f
+	-0.5f, -0.5f, 0.0f,1.0f,0.0f,0.0f,
+	 0.5f, -0.5f, 0.0f,0.0f,1.0f,0.0f,
+	 0.0f,  0.5f, 0.0f,0.0f,0.0f,1.0f
 	};
 	//初始化顶点数组合对象
 	unsigned int VAO;
@@ -103,22 +103,28 @@ int main() {
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT,GL_FALSE, 3*sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
+	//启用顶点属性
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	while (!glfwWindowShouldClose(window)) {
 		processInput(window);	
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		unsigned int uniformColorLocation= glGetUniformLocation(shaderProgram, "ourColor");	
-		double t=  glfwGetTime();
-		glUniform4f(uniformColorLocation, (GLfloat)sin(t), (GLfloat)cos(t), 1, 1);
-	//激活着色器
+		//激活着色器
 		glUseProgram(shaderProgram);
+		unsigned int uniformColorLocation= glGetUniformLocation(shaderProgram, "ourColor");	
+		if (uniformColorLocation != -1) {
+			double t = glfwGetTime();
+			//必须在激活着色器之后修复uniform的数值，glUniform4f修改的是当前激活的着色器中的uniform
+			glUniform4f(uniformColorLocation, (GLfloat)sin(t), (GLfloat)cos(t), 1, 1);
+		}
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(window);	
 		glfwPollEvents();
 	}	
 	//释放相关资源，退出程序
