@@ -2,6 +2,9 @@
 #include <glfw3.h>
 #include <iostream>
 #include "stb_image.h"
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 #include "Shader.h"
 using namespace std;
 
@@ -24,14 +27,12 @@ int main() {
 	if (window == NULL) {
 		cout << "创建窗口失败！" << endl;
 		glfwTerminate();
-		system("pause");
 		return 0;
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		cout << "GLAD初始化失败!" << endl;
-		system("pause");
 		return 0;
 	}
 
@@ -67,7 +68,6 @@ int main() {
 	Shader shaderProgram("./vertex.sha","./fragment.sha");
 	if (shaderProgram.getId() == -1) {
 		cout << "着色器生成失败!" << endl;
-		system("pause");
 		return 0;
 	}
 	//顶点数据与着色器顶点属性之间的链接关系
@@ -83,7 +83,6 @@ int main() {
 	unsigned char* textureData1 = stbi_load("./texture.png",&width,&height,&nChannels,0);
 	if (!textureData1) {
 		cout << "载入纹理图像失败!" << endl;
-		system("pause");
 		return 0;
 	}
 	unsigned int texture1;
@@ -105,7 +104,6 @@ int main() {
 	unsigned char* textureData2 = stbi_load("./face.png", &width, &height, &nChannels, 0);
 	if (!textureData2) {
 		cout << "载入纹理图像失败!" << endl;
-		system("pause");
 		return 0;
 	}
 	unsigned int texture2;
@@ -133,6 +131,7 @@ int main() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
+	float s=1, r=0, t=0;
 	while (!glfwWindowShouldClose(window)) {
 		processInput(window);
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -143,6 +142,15 @@ int main() {
 		//激活纹理单元
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
+		//定义变换矩阵
+		t += 0.001;
+		r += 0.1;
+		s -= 0.001;
+		glm::mat4 mt=glm::mat4(1.0f);
+		mt = glm::scale(mt, glm::vec3(s,s,s));
+		mt = glm::rotate(mt, glm::radians(r), glm::vec3(0, 0, 1));
+		mt = glm::translate(mt, glm::vec3(0,0,0));
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.getId(), "mt"),1,GL_FALSE,glm::value_ptr(mt));
 		//激活着色器
 		shaderProgram.use();
 		glBindVertexArray(VAO);
@@ -162,6 +170,5 @@ int main() {
 	glDeleteTextures(1, &texture1);
 	glDeleteTextures(1, &texture2);
 	glfwTerminate();
-	system("pause");
 	return 1;
 }

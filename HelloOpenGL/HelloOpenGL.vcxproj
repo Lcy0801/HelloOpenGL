@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\OpenGL\GLAD\include;D:\OpenGL\GLFW\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\OpenGL\GLM;D:\OpenGL\GLAD\include;D:\OpenGL\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\OpenGL\GLFW\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

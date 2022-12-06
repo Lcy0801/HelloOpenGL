@@ -2,11 +2,20 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 ainVColor;
 layout (location = 2) in vec2 ainTextureCoord;
+uniform mat4  mt;
 out vec3 aVColor;
 out vec2 aVTextureCoord;
 void main()
 {
-   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-   aVColor=ainVColor;
-   aVTextureCoord=ainTextureCoord;
+	vec4 tmpPos = mt * vec4(aPos.x, aPos.y, aPos.z, 1.0);
+	if (abs(tmpPos.x) > 1 || abs(tmpPos.y) > 1 || abs(tmpPos.y) > 1) 
+	{
+		gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+	}
+	else 
+	{
+		gl_Position = tmpPos;
+	}
+	aVColor = ainVColor;
+	aVTextureCoord = ainTextureCoord;
 };
