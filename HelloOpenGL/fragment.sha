@@ -1,0 +1,10 @@
+#version 460 core
+in vec3 aVColor;
+in vec2 aVTextureCoord;
+uniform sampler2D  textureUnit1;
+uniform sampler2D  textureUnit2;
+out vec4 FragColor;
+void main()
+{
+	FragColor = mix(texture(textureUnit1,aVTextureCoord),texture(textureUnit2,aVTextureCoord),0.5) * vec4(aVColor,1.0);
+};

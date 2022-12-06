@@ -86,6 +86,7 @@ public:
          cout << "×ÅÉ«Æ÷Á´½ÓÊ§°Ü" << endl;
          glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
          cout << infoLog << endl;
+         return;
      }
      delete []infoLog;
      glDeleteShader(vertexShader);

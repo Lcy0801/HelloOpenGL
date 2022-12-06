@@ -135,10 +135,14 @@
     <ClCompile Include="..\..\..\..\..\..\OpenGL\GLAD\glad.c" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="HelloShader.cpp" />
+    <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="template.cpp" />
     <ClCompile Include="第一个三角形.cpp" />
+    <ClCompile Include="纹理.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
