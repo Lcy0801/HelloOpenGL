@@ -36,6 +36,12 @@
     <ClCompile Include="template.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="坐标系统.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="坐标系统3D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">

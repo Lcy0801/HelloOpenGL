@@ -137,6 +137,8 @@
     <ClCompile Include="HelloShader.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="template.cpp" />
+    <ClCompile Include="坐标系统.cpp" />
+    <ClCompile Include="坐标系统3D.cpp" />
     <ClCompile Include="第一个三角形.cpp" />
     <ClCompile Include="纹理.cpp" />
   </ItemGroup>
